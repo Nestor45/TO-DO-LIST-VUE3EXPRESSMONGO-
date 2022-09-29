@@ -227,29 +227,6 @@
         editedItem.value = Object.assign({}, item)
     }
 
-    const saveEdit = async (item) => {
-        editedIndex.value = tasks.value.indexOf(item)
-        editedItem.value = Object.assign({}, item)
-        try {
-            await fetch(`http://127.0.0.1:4000/api/tasks/${item._id}`, {
-                method: 'PUT', // or 'PUT'
-                body: JSON.stringify(editedItem.value), // data can be `string` or {object}!
-                headers:{
-                    'Content-Type': 'application/json'
-                }
-            }).then(res => res.json())
-                .catch(error => {console.error('Error:', error)})
-                .then(response => {
-                    console.log('Success:', response),
-                    Object.assign(tasks.value[editedIndex.value], editedItem.value)
-                    
-                })
-        } catch (error) {
-            console.log(error)
-        }
-        dialog.value = false
-    }
-
     const deleteItem = async (item) => {
         console.log(item._id)
         editedIndex.value = tasks.value.indexOf(item)
